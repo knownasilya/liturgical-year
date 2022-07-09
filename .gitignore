@@ -1,0 +1,53 @@
+# compiled output
+/dist/
+/tmp/
+
+# dependencies
+/bower_components/
+/node_modules/
+
+# misc
+*.patch
+usage-data.json
+/.env*
+/.pnp*
+/.sass-cache
+/.eslintcache
+/connect.lock
+/coverage/
+/libpeerconnection.log
+lerna-debug.log*
+npm-debug.log*
+testem.log
+/npm-debug.log*
+/testem.log
+/yarn-error.log
+/codemods.log
+/DEBUG
+/MODULE_REPORT.md
+.eslintcache
+yarn-error.log
+/apps/*/DEBUG
+/apps/*/dist/
+/apps/*/dist-*
+/apps/*/tmp/
+/apps/*/node_modules/
+/apps/*/asset-stats.json
+/engines/*/DEBUG
+/engines/*/dist/
+/engines/*/dist-*
+/engines/*/tmp/
+/engines/*/node_modules/
+/addons/*/DEBUG
+/addons/*/dist/
+/addons/*/dist-*
+/addons/*/tmp/
+/addons/*/node_modules/
+/apps/*/concat-stats-for/
+/engines/*/concat-stats-for/
+/addons/*/concat-stats-for/
+
+# ember-try
+/.node_modules.ember-try/
+/bower.json.ember-try
+/package.json.ember-try

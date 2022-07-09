@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "pnpm"
+      - name: Install Root Dependencies
+        run: pnpm install
+      - name: Check Types
+        run: pnpm run check:types
+      - name: Lint HBS
+        run: pnpm run lint:hbs
+      - name: Lint JS/TS
+        run: pnpm run lint:jsts
+  basic-tests:
+    name: Basic Tests
+    needs: changes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "pnpm"
+      - name: Install Dependencies
+        run: pnpm install
+      - name: Build Libraries
+        run: pnpm run build:libraries
+      - name: Basic Development Tests
+        run: pnpm run test:development
+      - name: Basic Production Tests
+        run: pnpm run test:production

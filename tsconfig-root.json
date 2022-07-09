@@ -1,0 +1,91 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "allowJs": true,
+    "checkJs": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noEmitOnError": false,
+    "noEmit": true,
+    "pretty": true,
+    "skipLibCheck": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "baseUrl": ".",
+    "module": "es6",
+    "experimentalDecorators": true,
+    "paths": {
+      "ember-intl/*": [
+        "node_modules/ember-intl/addon/*"
+      ],
+      "fetch": [
+        "node_modules/ember-fetch"
+      ],
+      "*": [
+        "types/*"
+      ],
+      "liturgical-year/*": [
+        "apps/liturgical-year/app/*"
+      ],
+      "liturgical-year/tests/*": [
+        "apps/liturgical-year/tests/*"
+      ]
+    }
+  },
+  "include": [
+    "apps/*/app/**/*",
+    "apps/*/capacitor.config.ts",
+    "addons/*/src/**/*",
+    "addons/*/addon/**/*",
+    "engines/*/addon/**/*",
+    "apps/*/tests/**/*",
+    "addons/*/tests/**/*",
+    "engines/*/tests/**/*",
+    "tests/*/tests/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "/logs/",
+    "apps/*/node_modules",
+    "apps/*/dist",
+    "apps/*/dist-*",
+    "apps/*/dists/*",
+    "apps/*/tmp",
+    "apps/*/DEBUG",
+    "apps/*/vendor",
+    "apps/*/public",
+    "addons/*/node_modules",
+    "addons/*/dist",
+    "addons/*/dist-*",
+    "addons/*/dists/*",
+    "addons/*/tmp",
+    "addons/*/DEBUG",
+    "addons/*/vendor",
+    "addons/*/public",
+    "engines/*/node_modules",
+    "engines/*/dist",
+    "engines/*/dist-*",
+    "engines/*/dists/*",
+    "engines/*/tmp",
+    "engines/*/DEBUG",
+    "engines/*/vendor",
+    "engines/*/public",
+    ".github",
+    ".git",
+    ".lint-todo"
+  ]
+}
