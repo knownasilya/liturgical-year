@@ -1,0 +1,14 @@
+svg g {
+  transform-origin: center;
+  font-size: 10px;
+  transform: translate(10px, 10px);
+}
+
+path {
+  transform-origin: center;
+}
+
+text {
+  z-index: 100;
+  font-size: 12px;
+}

@@ -1,60 +1,43 @@
 {
-  "name": "liturgical-year-root",
-  "description": "Add your description here",
+  "name": "liturgical-year",
   "version": "0.0.0",
   "private": true,
-  "license": "All Rights Reserved",
-  "author": "Ilya Radchenko <knownasilya@gmail.com>",
-  "workspaces": {
-    "packages": [
-      "addons/*",
-      "apps/*",
-      "engines/*",
-      "tools/*",
-      "tests/*"
-    ]
+  "description": "Small description for liturgical-year goes here",
+  "repository": "",
+  "license": "MIT",
+  "author": "",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
   },
   "scripts": {
-    "build": "lerna run --stream --parallel --no-bail build",
-    "test:development": "lerna run --stream --parallel --no-bail test:development",
-    "test:production": "lerna run --stream --parallel --no-bail test:production",
-    "test:fastboot": "lerna run --stream --parallel --no-bail test:fastboot",
-    "test:embroider": "lerna run --stream --parallel --no-bail test:embroider",
+    "build": "ember build --environment=production",
+    "lint": "npm-run-all --aggregate-output --continue-on-error --parallel \"lint:!(fix)\"",
+    "lint:fix": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*:fix",
     "lint:hbs": "ember-template-lint .",
-    "lint:jsts": "eslint . --cache",
-    "check:types": "tsc -p ./tsconfig.json --noEmit --pretty false",
-    "start:liturgical-year": "cd apps/liturgical-year && pnpm run start"
+    "lint:hbs:fix": "ember-template-lint . --fix",
+    "lint:js": "eslint . --cache",
+    "lint:js:fix": "eslint . --fix",
+    "start": "ember serve",
+    "test": "npm-run-all lint test:*",
+    "test:ember": "ember test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com:knownasilya/liturgical-year.git"
-  },
-  "homepage": "https://github.com/knownasilya/liturgical-year",
-  "bugs": "https://github.com/knownasilya/liturgical-year/issues",
-  "engines": {
-    "node": "16.* || >= 18",
-    "npm": "Use pnpm",
-    "yarn": "Use pnpm"
-  },
-  "volta": {
-    "node": "18.2.0"
-  },
-  "packageManager": "pnpm@7.5.0",
-  "pnpm": {},
   "devDependencies": {
-    "release-it": "^14.14.3",
-    "release-it-yarn-workspaces": "^2.0.1",
-    "release-it-lerna-changelog": "^4.0.1",
-    "@babel/plugin-proposal-decorators": "^7.18.6",
-    "@babel/eslint-parser": "^7.18.2",
+    "@babel/core": "^7.0.0",
+    "@ember/optional-features": "^2.0.0",
+    "@ember/test-helpers": "^2.7.0",
+    "@embroider/compat": "1.8.0",
+    "@embroider/core": "1.8.0",
+    "@embroider/webpack": "1.8.0",
     "@glimmer/component": "^1.1.2",
-    "ember-modifier": "^3.2.7",
-    "ember-cli-htmlbars": "^6.0.1",
-    "@babel/core": "^7.18.6",
+    "@glimmer/tracking": "^1.1.2",
     "@glint/core": "^0.9.1",
     "@glint/environment-ember-loose": "^0.9.1",
-    "lerna": "^5.1.6",
-    "@types/ember-data": "^4.0.2",
+    "@glint/environment-ember-template-imports": "^0.9.1",
+    "@glint/template": "^0.9.1",
+    "@types/date-fns": "^2.6.0",
+    "@types/ember": "^4.0.0",
+    "@types/ember-data": "^4.0.0",
     "@types/ember-data__adapter": "^4.0.0",
     "@types/ember-data__model": "^4.0.0",
     "@types/ember-data__serializer": "^4.0.0",
@@ -78,62 +61,67 @@
     "@types/ember__test": "^4.0.0",
     "@types/ember__test-helpers": "^2.6.1",
     "@types/ember__utils": "^4.0.0",
-    "@types/ember__destroyable": "^4.0.0",
     "@types/htmlbars-inline-precompile": "^3.0.0",
-    "@types/qunit": "^2.19.1",
+    "@types/qunit": "^2.11.3",
     "@types/rsvp": "^4.0.4",
-    "@typescript-eslint/eslint-plugin": "^5.30.3",
-    "@typescript-eslint/parser": "^5.30.3",
-    "json-typescript": "^1.1.2",
-    "ember-template-lint": "^4.10.1",
-    "ember-template-lint-plugin-prettier": "^4.0.0",
-    "eslint": "^8.19.0",
+    "babel-eslint": "^10.1.0",
+    "broccoli-asset-rev": "^3.0.0",
+    "ember-auto-import": "^2.4.1",
+    "ember-cli": "~4.4.0",
+    "ember-cli-app-version": "^5.0.0",
+    "ember-cli-babel": "^7.26.11",
+    "ember-cli-dependency-checker": "^3.3.1",
+    "ember-cli-htmlbars": "^6.0.1",
+    "ember-cli-inject-live-reload": "^2.1.0",
+    "ember-cli-sri": "^2.1.1",
+    "ember-cli-terser": "^4.0.2",
+    "ember-cli-typescript": "^5.1.0",
+    "ember-cli-typescript-blueprints": "^3.0.0",
+    "ember-data": "~4.4.0",
+    "ember-export-application-global": "^2.0.1",
+    "ember-fetch": "^8.1.1",
+    "ember-load-initializers": "^2.1.2",
+    "ember-page-title": "^7.0.0",
+    "ember-qunit": "^5.1.5",
+    "ember-resolver": "^8.0.3",
+    "ember-source": "~4.5.0",
+    "ember-template-imports": "^3.0.1",
+    "ember-template-lint": "^4.8.0",
+    "ember-truth-helpers": "^3.0.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-ember": "^10.6.1",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-no-useless-assign": "^1.0.3",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-qunit": "^7.3.0",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-unicorn": "^42.0.0",
-    "eslint-plugin-unused-imports": "^2.0.0",
-    "lerna-changelog": "^2.2.0",
-    "mdast-util-from-markdown": "^1.2.0",
+    "loader.js": "^4.7.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
-    "typescript": "^4.7.4"
+    "qunit": "^2.19.1",
+    "qunit-dom": "^2.0.0",
+    "typescript": "^4.7.4",
+    "webpack": "^5.73.0"
   },
-  "release-it": {
-    "plugins": {
-      "release-it-lerna-changelog": {
-        "infile": "CHANGELOG.md",
-        "launchEditor": false
-      },
-      "release-it-yarn-workspaces": {
-        "skipChecks": true,
-        "publish": false
-      }
+  "packageManager": "pnpm@7.1.7",
+  "pnpm": {
+    "overrides": {
+      "@types/eslint": "7.29.0"
     },
-    "git": {
-      "tagName": "v${version}"
-    },
-    "github": {
-      "release": true,
-      "tokenRef": "GITHUB_AUTH"
-    },
-    "npm": false
-  },
-  "changelog": {
-    "labels": {
-      ":memo: security": ":lock: Security Improvement",
-      ":memo: feat": ":rocket: Enhancement",
-      ":memo: bugfix": ":bug: Bug Fix",
-      ":memo: perf:": ":zap: Performance",
-      ":memo: cleanup": ":shower: Deprecation Removal",
-      ":memo: deprecation": ":evergreen_tree: New Deprecation",
-      ":memo: doc": ":memo: Documentation",
-      ":memo: test": ":goal_net: Test",
-      ":memo: chore": ":house: Internal"
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@babel/core"
+      ]
     }
+  },
+  "engines": {
+    "node": "12.* || 14.* || >= 16"
+  },
+  "ember": {
+    "edition": "octane"
+  },
+  "dependencies": {
+    "date-fns": "^2.29.1",
+    "ember-modifier": "^3.2.7",
+    "tracked-built-ins": "^3.1.0"
   }
 }

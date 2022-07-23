@@ -1,6 +1,0 @@
-environment: ember-loose
-include:
-  - apps/*/app/**
-  - addons/*/addon/**
-  - addons/*/src/**
-  - engines/*/addon/**
