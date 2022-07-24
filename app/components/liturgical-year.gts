@@ -9,28 +9,33 @@ const WIDTH = 30;
 const INNER_RRADIUS = 20;
 const RADIUS = 50;
 const DONUT_WIDTH = 100;
-const TOTAL_DEGREES = 360;
-const VIEWBOX = 150;
+const OFFSET = 90;
+const VIEWBOX = 100;
 
-export default class LiturgicalYear extends Component<{}> {
-  styles = styles;
+export interface Signature {
+  Element: SVGElement;
+  Args: {}
+}
+export type Range = [Date, Date];
+
+export default class LiturgicalYear extends Component<Signature> {
   today = new Date();
   year = this.today.getFullYear();
   previousYear = this.year - 1;
   easter = getEaster(this.year);
   ashWednesday = subDays(this.easter, 46);
   // Slices
-  advent = [this.previousAdvent, new Date(`dec 24 ${this.previousYear}`)];
-  christmastide = [new Date(`dec 25 ${this.previousYear}`), new Date(`jan 5 ${this.year}`)];
-  ordinary1 = [new Date(`jan 6 ${this.year}`), this.ashWednesday];
-  lent = [this.ashWednesday, this.easter];
-  eastertide = [this.easter, addDays(this.easter, 50)];
-  ordinary2 = [addDays(this.easter, 50), this.nextAdvent];
+  advent: Range = [this.previousAdvent, new Date(`dec 24 ${this.previousYear}`)];
+  christmastide: Range = [new Date(`dec 25 ${this.previousYear}`), new Date(`jan 5 ${this.year}`)];
+  ordinary1: Range = [new Date(`jan 6 ${this.year}`), this.ashWednesday];
+  lent: Range = [this.ashWednesday, this.easter];
+  eastertide: Range = [this.easter, addDays(this.easter, 50)];
+  ordinary2: Range = [addDays(this.easter, 50), this.nextAdvent];
 
   get offsetDeg() {
     const degrees = dateToDegrees(this.previousAdvent);
-    const diff = TOTAL_DEGREES - degrees;
-    return Math.round(diff);
+    
+    return Math.round(degrees - OFFSET);
   }
 
   get previousAdvent() {
@@ -48,9 +53,9 @@ export default class LiturgicalYear extends Component<{}> {
   }
 
   <template>
-    <svg viewBox="0 0 {{VIEWBOX}} {{VIEWBOX}}" width="400" ...attributes>
+    <svg class={{styles.donut}} viewBox="0 0 {{VIEWBOX}} {{VIEWBOX}}" width="400" ...attributes>
       <g 
-        {{!-- transform=' scale(-1, 1) rotate(-{{this.offsetDeg}})' --}}
+        transform='scale(-1, 1) rotate({{this.offsetDeg}})'
       >
         <Slice 
           @width={{WIDTH}} 
@@ -107,9 +112,6 @@ export default class LiturgicalYear extends Component<{}> {
           @color='#c2e8d8'
         />
         
-
-        <circle cx={{RADIUS}} cy={{RADIUS}} r="53" fill='transparent' stroke='tomato'/>
-        <circle cx={{RADIUS}} cy={{RADIUS}} r={{RADIUS}} fill='transparent' stroke='#f8f7f4'/>
         <circle cx={{RADIUS}} cy={{RADIUS}} r="35" fill='transparent' stroke='#f8f7f4'/>
         <circle cx={{RADIUS}} cy={{RADIUS}} r="20" fill='transparent' stroke='#f8f7f4'/>
       </g>

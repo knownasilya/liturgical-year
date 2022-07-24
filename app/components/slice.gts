@@ -1,14 +1,18 @@
 import Component from '@glimmer/component';
 import dateToDegrees from 'liturgical-year/utils/date-to-degrees';
+import type { Range } from './liturgical-year';
 
-interface Args {
-  width: number;
-	radius: number;
-	innerRadius: number;
-	donutWidth:number;
-	range: [startDate: Date, endDate: Date];
-	color: string;
-	name: string;
+interface Signature {
+	Element: SVGPathElement;
+	Args: {
+		width: number;
+		radius: number;
+		innerRadius: number;
+		donutWidth:number;
+		range: Range;
+		color: string;
+		name?: string;
+	}
 }
 
 interface Point {
@@ -16,16 +20,15 @@ interface Point {
 	y:number;
 }
 
-export default class Slice extends Component<Args> {
+export default class Slice extends Component<Signature> {
 	end: Point;
 	start:Point;
 	innerEnd: Point;
 	innerStart: Point;
-	offset: number;
 	largeArc: 1 | 0;
 	color: string;
 
-	constructor(owner, args: Args) {
+	constructor(owner: any, args: Signature['Args']) {
 		super(owner, args);
 		const {start, end} = calculateRadius(args.range);
 		const diff = end - start;
@@ -64,7 +67,7 @@ export default class Slice extends Component<Args> {
 	</template>
 }
 
-function calculateRadius(range: [startDate: Date, endDate: Date]) {
+function calculateRadius(range: Range) {
 	const [start, end] = range;
 
 	return {
