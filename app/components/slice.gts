@@ -1,4 +1,6 @@
 import Component from '@glimmer/component';
+import { on } from '@ember/modifier';
+import {fn } from '@ember/helper';
 import dateToDegrees from 'liturgical-year/utils/date-to-degrees';
 import type { Range } from './liturgical-year';
 
@@ -11,6 +13,7 @@ interface Signature {
 		donutWidth:number;
 		range: Range;
 		color: string;
+		onHover: (val?: string) => void;
 		name?: string;
 	}
 }
@@ -54,16 +57,10 @@ export default class Slice extends Component<Signature> {
 				A {{@innerRadius}} {{@innerRadius}} 0 {{this.largeArc}} 1 {{this.innerStart.x}} {{this.innerStart.y}}
 			"
 			id={{@name}}
+			{{on "mouseover" (fn @onHover @name)}}
+      {{on "mouseout" (fn @onHover '')}}
 			...attributes
 		/>
-	
-		{{#if @name}}
-			<text width="80" height="80"   dominant-baseline="top" text-anchor="top" >
-				<textpath alignment-baseline="top"  dominant-baseline="middle" text-anchor="middle" href="#{{@name}}">
-					{{@name}}
-				</textpath>
-			</text>
-		{{/if}}
 	</template>
 }
 
