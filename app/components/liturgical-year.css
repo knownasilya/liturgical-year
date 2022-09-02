@@ -1,15 +1,32 @@
 :local(.donut) {
-  g {
-    transform-origin: center;
-    font-size: 10px;
-  }
+	svg {
+		position: relative;
+	}
 
-  path {
-    transform-origin: center;
-  }
+	g {
+		transform-origin: center;
+		font-size: 10px;
+	}
 
-  text {
-    z-index: 100;
-    font-size: 12px;
-  }
+	path {
+		transform-origin: center;
+	}
+
+	text {
+		z-index: 100;
+		font-size: 12px;
+	}
+}
+
+:local(.container) {
+	position: relative;
+}
+
+:local(.hovered) {
+	position: absolute;
+	top: 200px;
+	left: 200px;
+	width: 200px;
+	text-align: center;
+	margin-left: -100px;
 }

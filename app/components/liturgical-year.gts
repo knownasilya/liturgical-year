@@ -1,19 +1,20 @@
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
-import { mut, fn } from '@ember/helper';
-import { PopperJS } from 'ember-popperjs'
+import {tracked} from '@glimmer/tracking';
+import {mut, fn} from '@ember/helper';
 import {previousSunday, subWeeks, subDays, addDays} from 'date-fns';
 import dateToDegrees from 'liturgical-year/utils/date-to-degrees';
 import getEaster from 'liturgical-year/utils/get-easter';
 import Slice from './slice';
 import styles from './liturgical-year.css';
 
-const WIDTH = 30;
-const INNER_RRADIUS = 20;
+const WIDTH = 10;
+const INNER_RRADIUS = 40;
 const RADIUS = 50;
 const DONUT_WIDTH = 100;
 const OFFSET = 90;
 const VIEWBOX = 100;
+
+const eq = (a: unknown, b: unknown) => a === b;
 
 export interface Signature {
   Element: SVGElement;
@@ -39,7 +40,7 @@ export default class LiturgicalYear extends Component<Signature> {
 
   get offsetDeg() {
     const degrees = dateToDegrees(this.previousAdvent);
-    
+
     return Math.round(degrees - OFFSET);
   }
 
@@ -58,88 +59,86 @@ export default class LiturgicalYear extends Component<Signature> {
   }
 
   <template>
-    <PopperJS as |reference popover|>
+		<div class={{styles.container}}>
       <svg class={{styles.donut}} viewBox="0 0 {{VIEWBOX}} {{VIEWBOX}}" width="400" ...attributes>
-        <g 
+        <g
           transform='scale(-1, 1) rotate({{this.offsetDeg}})'
         >
-          <Slice 
-            {{reference}}
-            @width={{WIDTH}} 
-            @radius={{RADIUS}} 
+          <Slice
+            @width={{WIDTH}}
+            @radius={{RADIUS}}
             @innerRadius={{INNER_RRADIUS}}
-            @donutWidth={{DONUT_WIDTH}} 
-            @range={{this.advent}} 
+            @donutWidth={{DONUT_WIDTH}}
+            @range={{this.advent}}
             @color='#374e94'
             @name="Advent"
             @onHover={{fn (mut this.hoveredSlice)}}
           />
 
-          <Slice 
-            @width={{WIDTH}} 
-            @radius={{RADIUS}} 
+          <Slice
+            @width={{WIDTH}}
+            @radius={{RADIUS}}
             @innerRadius={{INNER_RRADIUS}}
-            @donutWidth={{DONUT_WIDTH}} 
-            @range={{this.christmastide}} 
+            @donutWidth={{DONUT_WIDTH}}
+            @range={{this.christmastide}}
             @color='#ba9f4e'
             @name='Christmastide'
             @onHover={{fn (mut this.hoveredSlice)}}
           />
 
-          <Slice 
-            @width={{WIDTH}} 
-            @radius={{RADIUS}} 
+          <Slice
+            @width={{WIDTH}}
+            @radius={{RADIUS}}
             @innerRadius={{INNER_RRADIUS}}
-            @donutWidth={{DONUT_WIDTH}} 
-            @range={{this.ordinary1}} 
+            @donutWidth={{DONUT_WIDTH}}
+            @range={{this.ordinary1}}
             @color='#c2e8d8'
             @name='Ordinary Time'
             @onHover={{fn (mut this.hoveredSlice)}}
           />
 
-          <Slice 
-            @width={{WIDTH}} 
-            @radius={{RADIUS}} 
+          <Slice
+            @width={{WIDTH}}
+            @radius={{RADIUS}}
             @innerRadius={{INNER_RRADIUS}}
-            @donutWidth={{DONUT_WIDTH}} 
-            @range={{this.lent}} 
+            @donutWidth={{DONUT_WIDTH}}
+            @range={{this.lent}}
             @color='#a8768b'
             @name='Lent'
             @onHover={{fn (mut this.hoveredSlice)}}
           />
 
-          <Slice 
-            @width={{WIDTH}} 
-            @radius={{RADIUS}} 
+          <Slice
+            @width={{WIDTH}}
+            @radius={{RADIUS}}
             @innerRadius={{INNER_RRADIUS}}
-            @donutWidth={{DONUT_WIDTH}} 
-            @range={{this.eastertide}} 
+            @donutWidth={{DONUT_WIDTH}}
+            @range={{this.eastertide}}
             @color='#fad35f'
             @name='Eastertide'
             @onHover={{fn (mut this.hoveredSlice)}}
           />
 
-          <Slice 
-            @width={{WIDTH}} 
-            @radius={{RADIUS}} 
+          <Slice
+            @width={{WIDTH}}
+            @radius={{RADIUS}}
             @innerRadius={{INNER_RRADIUS}}
-            @donutWidth={{DONUT_WIDTH}} 
-            @range={{this.ordinary2}} 
+            @donutWidth={{DONUT_WIDTH}}
+            @range={{this.ordinary2}}
             @color='#c2e8d8'
             @name='Ordinary Time'
             @onHover={{fn (mut this.hoveredSlice)}}
           />
-          
-          <circle cx={{RADIUS}} cy={{RADIUS}} r="35" fill='transparent' stroke='#f8f7f4'/>
+
           <circle cx={{RADIUS}} cy={{RADIUS}} r="20" fill='transparent' stroke='#f8f7f4'/>
         </g>
       </svg>
 
-      {{#if this.hoveredSlice}}
-        <div {{popover}}>
+      {{!-- {{#if this.hoveredSlice}} --}}
+        <div class={{styles.hovered}}>
           {{this.hoveredSlice}}
         </div>
-      {{/if}}
-    </PopperJS>
+			{{!-- {{/if}} --}}
+		</div>
   </template>
 }
